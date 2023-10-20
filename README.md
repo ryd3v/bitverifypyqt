@@ -2,7 +2,7 @@
 
 PyQt6 Version of **[BITVERIFY](https://github.com/ryd3v/bitverify)**
 
-V1.0.0
+V1.0.1
 
 ## Overview
 
@@ -14,6 +14,7 @@ supports P2PKH, P2SH, and Bech32 address types and offers both light and dark mo
 ## Features
 
 - Validate P2PKH, P2SH, and Bech32 Bitcoin addresses
+- Bulk validation from a file
 - Light and Dark Mode support
 - Simple and intuitive GUI
 - Error popups for invalid addresses
@@ -23,7 +24,6 @@ supports P2PKH, P2SH, and Bech32 address types and offers both light and dark mo
 
 - Python 3.6+
 - PyQt6
-- Qt Designer (optional)
 
 ## Installation
 
@@ -43,6 +43,7 @@ supports P2PKH, P2SH, and Bech32 address types and offers both light and dark mo
     ```
     python bitverify.py
     ```
+   or check [Releases](https://github.com/ryd3v/bitverifypyqt/releases) for latest version
 
 ## Usage
 
