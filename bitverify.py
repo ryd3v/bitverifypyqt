@@ -1,3 +1,4 @@
+# Version V1.0.3
 from hashlib import sha256
 
 from PyQt6.QtGui import QIcon
@@ -80,44 +81,8 @@ def check_file():
         msg.exec()
 
 
-is_dark_mode = False
-
-
-def toggle_theme():
-    global is_dark_mode
-    if is_dark_mode:
-        app.setStyleSheet("""
-            QPushButton {
-                border-radius: 10px;
-                height: 30px;
-                background-color: #3b82f6;
-            }
-            QLineEdit {
-                border-radius: 10px;
-                height: 30px;
-            }
-        """)
-    else:
-        app.setStyleSheet("""
-            QWidget {
-                background-color: #18181b;
-                color: #FFFFFF;
-            }
-            QPushButton {
-                background-color: #3b82f6;
-                border-radius: 10px;
-                height:30px;
-            }
-            QLineEdit {
-                background-color: #505050;
-                border-radius: 10px;
-                height: 30px;
-            }
-        """)
-    is_dark_mode = not is_dark_mode
-
-
 app = QApplication([])
+app.setStyle("Fusion")
 
 main_window = QMainWindow()
 main_window.setWindowTitle("BitVerify")
@@ -125,11 +90,39 @@ main_window.setWindowIcon(QIcon('icon.ico'))
 main_window.resize(400, 200)
 
 input_field = QLineEdit()
+
+# Define button styles
+button_stylesheet = """
+    QPushButton {
+        background-color: #3b82f6;
+        color: white;
+        font-size: 14px;
+        border-radius: 10px;
+        height: 30px;
+    }
+    QPushButton:hover {
+        background-color: #52525b;
+    }
+    QPushButton:pressed {
+        background-color: #2563eb;
+    }
+    QPushButton:disabled {
+        background-color: #A0A0A0; /* Gray for disabled state */
+        color: #FFFFFF;
+    }
+"""
+
+# Create buttons
 validate_btn = QPushButton("Validate")
 clear_btn = QPushButton("Clear")
-toggle_theme_btn = QPushButton("Toggle Theme")
 check_file_btn = QPushButton("Check File")
 
+# Apply button styles
+validate_btn.setStyleSheet(button_stylesheet)
+clear_btn.setStyleSheet(button_stylesheet)
+check_file_btn.setStyleSheet(button_stylesheet)
+
+# Layout and connections
 button_layout = QHBoxLayout()
 button_layout.addWidget(validate_btn)
 button_layout.addWidget(clear_btn)
@@ -137,10 +130,7 @@ button_layout.addWidget(check_file_btn)
 
 validate_btn.clicked.connect(lambda: show_popup(is_valid_bitcoin_address(input_field.text())))
 clear_btn.clicked.connect(lambda: input_field.clear())
-toggle_theme_btn.clicked.connect(toggle_theme)
 check_file_btn.clicked.connect(check_file)
-
-button_layout.addWidget(toggle_theme_btn)
 
 main_layout = QVBoxLayout()
 main_layout.addWidget(input_field)
@@ -150,7 +140,6 @@ central_widget = QWidget()
 central_widget.setLayout(main_layout)
 
 main_window.setCentralWidget(central_widget)
-toggle_theme()
 main_window.show()
 
 app.exec()
